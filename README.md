@@ -11,9 +11,9 @@
 ![schema-database.png](schema-database.png)
 
 ## API DOC
-[postman collection]()
+[Student API Test.postman_environment.json](Student%20API%20Test.postman_environment.json)
 
-[postman environment]()
+[Students API.postman_collection.json](Students%20API.postman_collection.json)
 ## API Specification
 [apispec.json](apispec.json)
 
