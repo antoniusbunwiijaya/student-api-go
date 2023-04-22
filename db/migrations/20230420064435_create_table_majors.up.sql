@@ -1,0 +1,5 @@
+CREATE TABLE majors
+(
+    id         INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    major_name VARCHAR(255)
+)ENGINE = InnoDB;

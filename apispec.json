@@ -1,0 +1,476 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Student API",
+    "description": "API SPEC for Student API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/students": {
+      "get": {
+        "security": [
+          {
+            "StudentAuth": []
+          }
+        ],
+        "tags": [
+          "Student API"
+        ],
+        "summary": "List all students",
+        "description": "List all Students",
+        "responses": {
+          "200": {
+            "description": "Success get All Students",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "age": {
+                            "type": "number"
+                          },
+                          "gender": {
+                            "type": "number",
+                            "format": "int32",
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "major": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "major_name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "StudentAuth": []
+          }
+        ],
+        "tags": [
+          "Student API"
+        ],
+        "summary": "Create new Student Include Major and Hobby",
+        "description": "Create new Student Include Major and Hobby",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStudent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success Create Student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "age": {
+                            "type": "number"
+                          },
+                          "gender": {
+                            "type": "number",
+                            "format": "int32",
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "major": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "major_name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "hobbies": {
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "hobby_name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/students/{studentId}": {
+      "get": {
+        "security": [
+          {
+            "StudentAuth": []
+          }
+        ],
+        "tags": [
+          "Student API"
+        ],
+        "summary": "Get Detail Student By Id",
+        "description": "Get Detail Student By Id",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "description": "Student Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Get Student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "age": {
+                            "type": "number"
+                          },
+                          "gender": {
+                            "type": "number",
+                            "format": "int32",
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "major": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "major_name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "hobbies": {
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "hobby_name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "StudentAuth": []
+          }
+        ],
+        "tags": [
+          "Student API"
+        ],
+        "summary": "Update Student By Id",
+        "description": "Update Student By Id",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "description": "Student Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Get Student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "age": {
+                            "type": "number"
+                          },
+                          "gender": {
+                            "type": "number",
+                            "format": "int32",
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "major": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "major_name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "hobbies": {
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "hobby_name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "StudentAuth": []
+          }
+        ],
+        "tags": [
+          "Student API"
+        ],
+        "summary": "Delete Student By Id",
+        "description": "Delete Student By Id",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "description": "Student Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Delete Student",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "StudentAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Authentication for Student API"
+      }
+    },
+    "schemas": {
+      "CreateStudent": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "gender": {
+            "type": "number",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "major": {
+            "type": "string"
+          },
+          "hobbies": {
+            "type": "array"
+          }
+        }
+      },
+      "UpdateStudent": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "gender": {
+            "type": "number",
+            "format": "int32",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "hobbies": {
+            "type": "array"
+          }
+        }
+      }
+    }
+  }
+}
