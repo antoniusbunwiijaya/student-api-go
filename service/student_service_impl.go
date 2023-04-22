@@ -61,11 +61,11 @@ func (s StudentServiceImpl) Create(ctx context.Context, request web.StudentCreat
 	student = s.StudentRepository.Save(ctx, tx, student)
 	studentId := student.Id
 
-	hobbies := s.HobbyService.Creates(ctx, request.Hobbies)
+	hobbies := s.HobbyService.Creates(ctx, tx, request.Hobbies)
 	fmt.Println(hobbies, studentId)
 	for i := 0; i < len(hobbies); i++ {
 		// todo bug stuck in sending request...
-		//s.HobbyService.CreateStudentHobby(ctx, studentId, hobbies[i].Id)
+		s.HobbyService.CreateStudentHobby(ctx, tx, studentId, hobbies[i].Id)
 	}
 	return helper.ToStudentResponse(student)
 }
@@ -104,7 +104,7 @@ func (s StudentServiceImpl) Delete(ctx context.Context, studentId int) {
 		panic(exception.NewNotFoundError(err.Error()))
 	}
 
-	s.HobbyService.DeleteHobbiesByStudentId(ctx, studentId)
+	s.HobbyService.DeleteHobbiesByStudentId(ctx, tx, studentId)
 	s.StudentRepository.Delete(ctx, tx, student)
 }
 
