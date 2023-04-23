@@ -6,7 +6,6 @@ import (
 	"antoniusbunwijaya/student-api-go/repository"
 	"context"
 	"database/sql"
-	"fmt"
 )
 
 type HobbyServiceImpl struct {
@@ -18,11 +17,7 @@ func NewHobbyService(hobbyRepository repository.HobbyRepository, DB *sql.DB) Hob
 	return &HobbyServiceImpl{HobbyRepository: hobbyRepository, DB: DB}
 }
 
-func (h HobbyServiceImpl) Creates(ctx context.Context, hobbyName []string) []domain.Hobby {
-	tx, err := h.DB.Begin()
-	helper.PanicIfError(err)
-	defer helper.CommitOrRollback(tx)
-
+func (h HobbyServiceImpl) Creates(ctx context.Context, tx *sql.Tx, hobbyName []string) []domain.Hobby {
 	var hobbiesArrays []domain.Hobby
 	for i := 0; i < len(hobbyName); i++ {
 		hobbyAvailable, isExist := h.FindByHobbyName(ctx, hobbyName[i])
@@ -65,22 +60,10 @@ func (h HobbyServiceImpl) GetHobbiesByStudentId(ctx context.Context, studentId i
 	return hobbies
 }
 
-func (h HobbyServiceImpl) CreateStudentHobby(ctx context.Context, studentId int, hobbyId int) {
-	fmt.Println("in 1")
-	tx, err := h.DB.Begin()
-	fmt.Println("in 2")
-	helper.PanicIfError(err)
-	fmt.Println("in 3")
-	defer helper.CommitOrRollback(tx)
-	fmt.Println("in 4")
+func (h HobbyServiceImpl) CreateStudentHobby(ctx context.Context, tx *sql.Tx, studentId int, hobbyId int) {
 	h.HobbyRepository.CreateStudentHobby(ctx, tx, studentId, hobbyId)
-	fmt.Println("id h s success create student hobby")
 }
 
-func (h HobbyServiceImpl) DeleteHobbiesByStudentId(ctx context.Context, studentId int) {
-	tx, err := h.DB.Begin()
-	helper.PanicIfError(err)
-	defer helper.CommitOrRollback(tx)
-
+func (h HobbyServiceImpl) DeleteHobbiesByStudentId(ctx context.Context, tx *sql.Tx, studentId int) {
 	h.HobbyRepository.DeleteHobbiesByStudentId(ctx, tx, studentId)
 }
